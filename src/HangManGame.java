@@ -9,7 +9,7 @@ import java.util.Scanner;
  *
  * @author holls9719
  */
-public class HangMan {
+public class HangManGame {
 
     /**
      * @param args the command line arguments
@@ -32,20 +32,20 @@ public class HangMan {
 
         //determine how long the word is
         int Length = word.length();
-        
-        //define individually the characters in the word
+
+        //saveing the word with blanks
+        String word2 = word;
+
+        //convert word to dashes
         for (int i = 0; i < Length; i++) {
-            char let[i] = word.charAt(i);
+            char temp = word.charAt(i);
+            word2 = word2.replace(temp, '-');
+
         }
 
-        //display the number of characters in the word as blank spaces
-        for (int i = 0; i < Length; i++) {
-            System.out.print("_ ");
-        }
+
         //print a blank line
         System.out.println("");
-
-
 
         //set the number of inncorect guesses player 2 gets to 6
         int guess = 6;
@@ -53,12 +53,16 @@ public class HangMan {
             //correct guesses variable defineing
             int correct = 0;
 
+            //prints the word so far
+            System.out.println("The word is " + word2);
             //tells player 2 how many guesses they have left
             System.out.println("Player 2 has " + guess + " guesses left.");
             //asks player 2 to input a guess
             System.out.println("Please guess a letter.");
             //input for the letter
             String letter = input.nextLine();
+            //turning the inputed letter to lowercase
+            letter = letter.toLowerCase();
             //putting the letter into a character form-instead of string
             char letter1 = letter.charAt(0);
 
@@ -67,28 +71,15 @@ public class HangMan {
             for (int i = 0; i < Length; i++) {
                 //looks at each character
                 char character = word.charAt(i);
-                if (!(letter1 == character)){
-                    //printing blanks
-                    System.out.print("_ ");
+                //if the inputed letter is a match
+                if (character == letter1) {
+                    //replace the correct letter with an astrix
+                    word2 = word2.replace(word.charAt(i), '*');
+                    //replace the rest of the word with dashes
                 }
-                //when the guess is right:
-                if (letter1 == character) {
-                    //adds to correct counter
-                    correct = correct + 1;
-                    //prints out new filled in blanks with correct guess
-                    System.out.print(letter1);
-                }
-                
-            }
-            //prints a blank line
-            System.out.println("");
-            
-            //when the guess is wrong:
-            if (correct == 0) {
-                //subtracts one from the guess counter
-                guess = guess - 1;
-                //tells player 2 their guess was incorrect
-                System.out.println("Sorry.Your guess was incorrect.");
+
+
+
             }
         }
     }
